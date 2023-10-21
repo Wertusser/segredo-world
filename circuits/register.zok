@@ -1,0 +1,18 @@
+import "utils/pack/bool/nonStrictUnpack256" as unpack256;
+import "ecc/edwardsScalarMult" as multiply;
+from "ecc/babyjubjubParams" import BABYJUBJUB_PARAMS;
+
+def key_eq(field sk, field[2] pk) -> bool {
+    field[2] G = [BABYJUBJUB_PARAMS.Gu, BABYJUBJUB_PARAMS.Gv];
+
+    bool[256] skBits = unpack256(sk);
+    field[2] ptExp = multiply(skBits, G, BABYJUBJUB_PARAMS);
+
+    bool out = ptExp[0] == pk[0] && ptExp[1] == pk[1];
+    return out;
+}
+
+def main(field[2] pk, private field sk) {
+    assert(key_eq(sk, pk));
+    return ;
+}

@@ -1,0 +1,23 @@
+import "hashes/poseidon/poseidon";
+import "utils/pack/bool/nonStrictUnpack256" as unpack256;
+import "ecc/edwardsScalarMult" as multiply;
+from "ecc/babyjubjubParams" import BABYJUBJUB_PARAMS;
+
+def preimage_eq(field input, field expected_hash) -> bool {
+    return poseidon([input]) == expected_hash;
+}
+
+def key_eq(field sk, field[2] pk) -> bool {
+    field[2] G = [BABYJUBJUB_PARAMS.Gu, BABYJUBJUB_PARAMS.Gv];
+
+    bool[256] skBits = unpack256(sk);
+    field[2] ptExp = multiply(skBits, G, BABYJUBJUB_PARAMS);
+
+    return ptExp == pk;
+}
+
+def main(field[2] pk, field expected_hash, private field sk, private field input) {
+    assert(preimage_eq(expected_hash, input));
+    assert(key_eq(sk, pk));
+    return;
+}
