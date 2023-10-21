@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
 import "./lib/ERC20.sol";
@@ -35,8 +36,6 @@ contract Enigma is ERC20, Ownable {
     ) Ownable() {
         registerVerifier = registerVerifier_;
         revealVerifier = revealVerifier_;
-
-        emit RegisterPriceChanged(0, registrationPrice);
     }
 
     function name() public view virtual override returns (string memory) {
