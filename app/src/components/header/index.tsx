@@ -1,14 +1,15 @@
 "use client";
 
+import { LOGO } from "@/constants/arts";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 import { styled } from "styled-components";
 
 const HEADER_LINKS = [
-  { title: "Home", link: "/" },
-  { title: "About", link: "/about" },
+  { title: "Join", link: "/join-us" },
+  { title: "Claim", link: "/claim" },
   { title: "Chat", link: "/chat" },
-  { title: "Join Us", link: "/join-us" },
+  { title: "About", link: "/" },
 ];
 
 export const Header = () => {
@@ -21,7 +22,9 @@ export const Header = () => {
   });
   return (
     <HeaderLayout>
-      <HeaderLogo>LOGO</HeaderLogo>
+      <HeaderLogo>
+        <LogoText>{LOGO}</LogoText>
+      </HeaderLogo>
       <HeaderLinks>{headerLinks}</HeaderLinks>
 
       <HeaderConnectButton>
@@ -45,8 +48,9 @@ const HeaderLayout = styled.header`
   max-width: 1440px;
 
   @media (max-width: 426px) {
+    gap: 16px;
     flex-wrap: wrap;
-    margin: 42px 16px;
+    margin: 16px 16px 42px 16px;
   }
 `;
 
@@ -60,13 +64,32 @@ const HeaderLinks = styled.div`
   @media (max-width: 426px) {
     width: 100%;
     order: 3;
-    margin-top: 16px;
     justify-content: space-between;
     gap: 0;
   }
 `;
 
-const HeaderLink = styled.div``;
+const HeaderLink = styled.div`
+  /* transform: scale(1, 1.18); */
+  font-weight: 700;
+
+  color: gray;
+
+  &:hover {
+    color: white;
+  }
+`;
+
+const LogoText = styled.pre`
+  font-size: 2px;
+  line-height: 1.7px;
+  font-weight: 700;
+
+  @media (max-width: 426px) {
+    font-size: 1px;
+    line-height: 1px;
+  }
+`;
 
 const HeaderLogo = styled.div`
   width: 25%;
@@ -78,9 +101,9 @@ const HeaderLogo = styled.div`
 const HeaderConnectButton = styled.div`
   display: flex;
   justify-content: flex-end;
-  
+
   width: 25%;
-  
+
   @media (max-width: 426px) {
     width: max-content;
   }
