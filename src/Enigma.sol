@@ -3,16 +3,13 @@ pragma solidity 0.8.20;
 
 import "./lib/ERC20.sol";
 import "./lib/Ownable.sol";
-import "./lib/MerkleProofLib.sol";
 import "forge-std/interfaces/IERC20.sol";
 import "./EnigmaErrors.sol";
 
 import {Verifier as RegisterVerifier} from "./verifiers/register.sol";
 import {Verifier as RevealVerifier} from "./verifiers/reveal.sol";
 
-contract Enigma is ERC20, Ownable {
-    using MerkleProofLib for bytes32[];
-
+contract Segredo is ERC20, Ownable {
     struct RiddlesInfo {
         bool solved;
         uint32 createdAt;
@@ -39,11 +36,11 @@ contract Enigma is ERC20, Ownable {
     }
 
     function name() public view virtual override returns (string memory) {
-        return "Enigma863";
+        return "Segredo";
     }
 
     function symbol() public view virtual override returns (string memory) {
-        return "863";
+        return "SEG";
     }
 
     function setRegistrationPrice(uint256 price) external onlyOwner {
